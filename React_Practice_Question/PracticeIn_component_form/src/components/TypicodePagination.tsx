@@ -1,4 +1,3 @@
-import './App.css'
 import { useState, useEffect } from 'react'
 
 interface Post {
@@ -8,7 +7,7 @@ interface Post {
   body: string
 }
 
-function App () {
+function TypicodePagination () {
   const [allData, setAllData] = useState<Post[]>([])
   const [fakeData, setFakeData] = useState<Post[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -75,4 +74,4 @@ function App () {
   )
 }
 
-export default App
+export default TypicodePagination
