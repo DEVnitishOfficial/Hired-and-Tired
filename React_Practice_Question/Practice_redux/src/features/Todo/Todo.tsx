@@ -5,9 +5,16 @@ interface TodoProps {
   isFinished: boolean
   onDelete: () => void
   onEdit: (todoData: string) => void
+  changeFinished: (isFinished: boolean) => void
 }
 
-export function Todo ({ todoData, isFinished, changeFinished, onDelete, onEdit }: TodoProps) {
+export function Todo ({
+  todoData,
+  isFinished,
+  changeFinished,
+  onDelete,
+  onEdit
+}: TodoProps) {
   const [finished, setFinished] = useState(isFinished)
   const [isEditing, setIsEditing] = useState(false)
   const [editText, setEditText] = useState(todoData)

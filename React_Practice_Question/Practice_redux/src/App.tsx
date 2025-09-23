@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { TodoList } from './features/TodoList/TodoList'
 import { AddTodo } from './features/AddTodo/AddTodo'
+import TodoContext from './features/context/TodoContext'
 
 
 function App() {
@@ -12,11 +13,22 @@ function App() {
     {id : 3, todoData : "todo 3", isFinished : false}
   ])
 
-  return (
-    <>
-     <h1> Hello world in react/redux</h1>
+  type value = {
+    list : {
+      id : number,
+      todoData : string,
+      isFinished : boolean
+    }[],
+    setList : (newList : {
+      id : number,
+      todoData : string,
+      isFinished : boolean
+    }[]) => void
+  }
 
-     <TodoList myList={list} mySetList={setList} />
+  return (
+    <TodoContext.Provider value={{list, setList} as value }>
+     <h1> Hello world in react/redux</h1>
      <AddTodo updateList={(todo) => setList([
       ...list,
       {
@@ -25,7 +37,8 @@ function App() {
         isFinished : false
       }
      ])} />
-    </>
+    <TodoList />
+    </TodoContext.Provider>
   )
 }
 

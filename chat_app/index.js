@@ -15,6 +15,7 @@ return  res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
 io.on('connection', (socket) => {
   console.log('a user connected', socket.id);
   socket.on("user_message",(message) => {
+    console.log('incoming msg', message)
     io.emit("msg",message)
   })
 });
