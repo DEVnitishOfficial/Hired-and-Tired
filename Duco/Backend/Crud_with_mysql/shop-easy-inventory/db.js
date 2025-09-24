@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "inventory_user",
@@ -11,18 +10,20 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || "shop_easy_inventory",
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0,
+  queueLimit: 50,
 });
 
-(async () => {
+async function checkDbConnection() {
   try {
     const connection = await pool.getConnection();
     console.log("✅ MySQL Database connected successfully!");
-    connection.release(); // release back to pool
-  } catch (err) {
+    connection.release();
+  } catch (error) {
     console.error("❌ MySQL Database connection failed:", err.message);
     process.exit(1); // exit process if DB not available
   }
-})();
+}
+
+checkDbConnection();
 
 export default pool;

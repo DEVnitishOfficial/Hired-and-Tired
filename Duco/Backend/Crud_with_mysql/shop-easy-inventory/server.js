@@ -2,6 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import productRoutes from "./product.routes.js";
+import pool from "./db.js";
 
 dotenv.config();
 const app = express();

@@ -1,4 +1,3 @@
-
 ```js
 // db.js
 import mysql from "mysql2/promise";
@@ -61,7 +60,6 @@ export async function deleteProduct(productId) {
   );
   return result.affectedRows;
 }
-```
 
 ---
 
@@ -72,3 +70,33 @@ export async function deleteProduct(productId) {
 * Used **parameterized queries (`?`)** to prevent SQL injection.
 * Externalized credentials with **dotenv** (fallbacks for default values).
 
+
+// write in single flow
+
+app.post("/api/products/create", async (req, res) => {
+
+    const { name, price, quantity } = req.body;
+    if (!name || !price || !quantity) {
+      throw new Error("Missing required fields");
+    }
+
+    const [result] = await pool.execute(
+    `INSERT INTO products (name, price, quantity) VALUES (?, ?, ?)`,
+    [name, price, quantity]
+  );
+
+  console.log('see the result',result)
+  
+  res.status(201).json({
+      success: true,
+      message: "Product created successfully, we did it",
+      data: {
+        id: result.insertId,
+        name,
+        price,
+        quantity,
+      },
+    });
+})
+
+```

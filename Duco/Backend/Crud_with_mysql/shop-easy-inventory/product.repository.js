@@ -6,6 +6,7 @@ export async function addProduct({ name, price, quantity }) {
     `INSERT INTO products (name, price, quantity) VALUES (?, ?, ?)`,
     [name, price, quantity]
   );
+  console.log('see the result',result)
   return result.insertId;
 }
 
@@ -15,6 +16,9 @@ export async function getProductById(productId) {
     `SELECT * FROM products WHERE id = ?`,
     [productId]
   );
+
+  console.log('see rows',[rows])
+
   return rows[0];
 }
 
